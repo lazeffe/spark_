@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detail.css">
   
-  
   <style>
   </style>
   
