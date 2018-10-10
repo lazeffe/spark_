@@ -7,11 +7,11 @@ GENDER		varchar2(20)
 );
 
 create Table BOOKMARK(
-BOOKMARK_EMAIL		varchar2(20),
-BOOKMARK_ADDR		varchar2(20),
+BOOKMARK_EMAIL	varchar2(20),
+BOOKMARK_NAME 	varchar2(50),
+BOOKMARK_ADDR		varchar2(50),
 BOOKMARK_TEL		varchar2(20)
 );
-
 
 create table SPark(
 	PARKING_CODE	 	char(50),
@@ -49,24 +49,20 @@ create table SPark(
 );
 
 
-insert into bookmark values(1, 'hjs', '110', '120', sysdate);
+select *from member;
 
 select * from bookmark;
 
-select * from spark;
-
-select *from member;
-
 select count(*) from member;
-
-select * from BOOKMARK;
-
-drop table BOOKMARK;
-
-insert into MEMBER values('ddd', 'ddd', 'dd', 'dd');
 
 insert into MEMBER values('asdf@asdf.com', 'asdf', 'username', '18','none');
 
+insert into BOOKMARK values('asdf@asdf.com', '아카데미 노상공영(구)', '강북구 수유동 535-76', '02-111-1111');
+insert into BOOKMARK values('asdf@asdf.com', '가오천 노상공영(구)', '강북구 수유동 181-40', '02-111-1111');
+insert into BOOKMARK values('asdf@asdf.com', '훈련원공원주차장(시)', '중구 을지로5가 40-3', '02-111-1111');
+
 commit;
 
-drop table member;
+delete from BOOKMARK where BOOKMARK_NAME='asdf@asdf.com';
+
+drop table BOOKMARK;

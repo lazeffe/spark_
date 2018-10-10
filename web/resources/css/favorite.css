@@ -5,7 +5,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 .mainImg-cover {
@@ -20,15 +20,15 @@
     display: flex;
     justify-content: center;
     align-self: center;
-    width: 70%;
+    width: 40%;
     max-width: 1024px;
-    height: 100%;
+    /*height: 100%;*/
     margin: auto;
 }
 
 .contentItem {
     width: 100%;
-    margin-top: 25vh;
+    margin-top: 20vh;
 }
 
 /* card list start */
@@ -38,8 +38,9 @@
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
-    max-width: 1200px;
-    min-width: 300px;
+    /*max-width: 1200px;
+    min-width: 300px;*/
+    width: 100%;
     margin-top: 20px;
     padding: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -57,12 +58,20 @@
     padding-right: 20px;
 }
 
-.card-list-title {
+.card-list-name {
     color: #00BFA5;
     font-size: 15px;
 }
 
-.card-list-content {
+.card-list-addr {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.card-list-tel {
     margin-top: 5px;
     display: flex;
     align-items: center;
@@ -107,17 +116,6 @@
 }
 
 /* for responsive end */
-
-/* for autocomplete start */
-
-.ui-autocomplete {
-    max-height: 150px;
-    overflow-y: auto;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
-}
-
-/* for autocomplete end */
 
 
 
