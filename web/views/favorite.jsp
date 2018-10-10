@@ -51,7 +51,8 @@
               </div>
             </div>
             <div class="card-item-right">
-              <div class="card-list-writer"><a href="/BmkDelete.me?BOOKMARK_NAME=${ list.BOOKMARK_NAME }"><i class="material-icons">bookmark</i></a></div>
+              <%--<div class="card-list-writer"><a href="/BmkDelete.me?BOOKMARK_NAME=${ list.BOOKMARK_NAME }"><i class="material-icons">bookmark</i></a></div>--%>
+              <div class="card-list-writer"><a href="/BmkDelete.me?BOOKMARK_NAME=${ list.BOOKMARK_NAME }">제거</a></div>
             </div>
           </div>
           </c:forEach>

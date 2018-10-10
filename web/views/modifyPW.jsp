@@ -4,6 +4,8 @@
 
 <c:set value="${ dto }" var="data"/>
 
+<c:set value="${ sessionScope.email }" var="email"/>
+
 <html>
 <head>
 
@@ -55,7 +57,7 @@
               </div>
             </div>
 
-            <form action="#" method="post" name="modifyPWForm">
+            <form action="/modifyPW.Lo" method="post" name="modifyPWForm">
               <div class="pwTitle old-title"><label for="old_pw">현재 비밀번호</label></div>
               <input type="password" name="old_pw" class="old_pw" id="old_pw">
               <div class="inputCmt" id="oldPw-Cmt"></div>
@@ -80,6 +82,33 @@
   <script src="../resources/js/modifyPW.js"></script>
 
   <script>
+
+    /* id check with AJAX */
+    function modifyPW_AJAX(old_pw, new_pw) {
+      var _email = '${ email }';
+      var _old_pw = old_pw.value;
+      var _new_pw = new_pw.value;
+
+      /*var params = '?';
+      params += '&email' + _email;
+      params += '&old_pw' + _old_pw;
+      params += '&new_pw' + _new_pw;*/
+
+      $.ajax({
+        url: "/ModifyPW.Lo?",
+        type: 'POST',
+        data: {email_data: _email, old_pw_data: _old_pw, new_pw_data: _new_pw},
+        success: function (data) {
+          if (data === 'success') {
+            alert('비밀번호 변경 성공');
+            window.close();
+          } else if (data === 'fail') {
+            alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요');
+          }
+        }
+      })
+    }
+
 
   </script>
 

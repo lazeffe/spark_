@@ -49,8 +49,16 @@ function modifyPW() {
     _new_pw_reCmt.focus();
     return false;
 
+  } else if (_old_pw.value === _new_pw.value) {
+    _new_pw_reCmt.innerHTML = "새로운 비밀번호가 현재 비밀번호와 동일합니다";
+    _new_pw_reCmt.focus();
+    return false;
+
   } else {
-    form.submit();
+    /*form.submit();*/
+    modifyPW_AJAX(_old_pw, _new_pw);
 
   }
 }
+
+
