@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.member.action.Action;
-import net.member.action.ActionForward;
-import net.member.db.MemberDAO;
+import net.bookmark.action.BmkListAction;
 
 @WebServlet("*.Lo")
 public class MemberFrontController extends HttpServlet {
@@ -42,10 +40,23 @@ public class MemberFrontController extends HttpServlet {
     Action action = null;
     ActionForward forward = null;
 
-    if (command.equals("/Home.Lo")) {
+    /*if (command.equals("/Home.Lo")) {
+
+
       forward = new ActionForward();
       forward.setRedirect(false);
       forward.setPath("views/home.jsp");
+
+    } */
+
+    if (command.equals("/Home.Lo")) {
+
+      action = new HomeListAction();
+      try {
+        forward = action.execute(request, response);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
 
     } else if (command.equals("/Signin.Lo")) {
       forward = new ActionForward();

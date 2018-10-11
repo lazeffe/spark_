@@ -10,6 +10,9 @@
 <head>
   <meta charset="utf-8">
   <title>스마트 주차장</title>
+
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
+
   <style>
     .wrap {
       position: absolute;
@@ -195,8 +198,6 @@
           latlng: new daum.maps.LatLng(data.positions[i].LAT, data.positions[i].LNG)
         }
       }
-      
-      console.log(positions);
 
       // 마커와 커스텀 오버레이 배열 변수 선언
       var marker = [];

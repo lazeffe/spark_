@@ -28,15 +28,13 @@ function deleteAcc() {
   }
 }
 
-
 /* trigger btn when press enter */
 function enterDeleteAcc(btn) {
   var _pw = document.deleteAccForm.pw;
   var _btn = document.getElementById(btn);
 
-  _pw.addEventListener('keydown', function (event) {
+  _pw.addEventListener('keyup', function (event) {
     if (event.keyCode === 13) {
-      // Trigger the button element with a click
       _btn.click();
     }
   });

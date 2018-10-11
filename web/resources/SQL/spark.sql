@@ -52,7 +52,7 @@ create table SPark(
 select *from member;
 select *from SPark;
 
-select * from bookmark;
+
 
 select count(*) from member;
 
@@ -61,6 +61,8 @@ insert into MEMBER values('asdf@asdf.com', 'asdf', 'username', '18','none');
 insert into BOOKMARK values('asdf@asdf.com', '아카데미 노상공영(구)', '강북구 수유동 535-76', '02-111-1111');
 insert into BOOKMARK values('asdf@asdf.com', '가오천 노상공영(구)', '강북구 수유동 181-40', '02-111-1111');
 insert into BOOKMARK values('asdf@asdf.com', '훈련원공원주차장(시)', '중구 을지로5가 40-3', '02-111-1111');
+
+select * from bookmark;
 
 commit;
 

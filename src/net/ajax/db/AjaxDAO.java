@@ -1,5 +1,6 @@
 package net.ajax.db;
 
+import net.bookmark.db.BookmarkDTO;
 import net.member.db.MemberDTO;
 
 import javax.naming.Context;
@@ -10,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AjaxDAO {
   
@@ -169,6 +172,74 @@ public class AjaxDAO {
       } catch (SQLException e) {}
     }
     
+    return false;
+  }
+
+  public List<BookmarkDTO> getBmkList(String email) {
+    String sql = "SELECT * FROM BOOKMARK WHERE BOOKMARK_EMAIL = ?";
+    List<BookmarkDTO> bmklist = new ArrayList<BookmarkDTO>();
+
+    try {
+      con = ds.getConnection();
+      pstmt = con.prepareStatement(sql);
+      pstmt.setString(1, email);
+      rs = pstmt.executeQuery();
+
+      while (rs.next()) {
+        BookmarkDTO dto = new BookmarkDTO();
+
+        dto.setBOOKMARK_NAME(rs.getString("BOOKMARK_NAME"));
+        dto.setBOOKMARK_ADDR(rs.getString("BOOKMARK_ADDR"));
+        dto.setBOOKMARK_TEL(rs.getString("BOOKMARK_TEL"));
+
+        bmklist.add(dto);
+      }
+
+      return bmklist;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+
+    } finally {
+      try {
+        if (rs != null) rs.close();
+        if (pstmt != null) pstmt.close();
+        if (con != null) con.close();
+      } catch (Exception ex) {
+      }
+    }
+    return null;
+
+  }
+
+  public boolean bmkDelete(String email, String bmk_name) {
+    String sql = "DELETE FROM BOOKMARK WHERE BOOKMARK_EMAIL = ? and BOOKMARK_NAME = ?";
+
+    int result = 0;
+
+    try {
+      con = ds.getConnection();
+      pstmt = con.prepareStatement(sql);
+      pstmt.setString(1, email);
+      pstmt.setString(2, bmk_name);
+
+      result = pstmt.executeUpdate();
+
+      if (result != 0) {
+
+        return true;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+
+    } finally {
+      try {
+        if (pstmt != null) pstmt.close();
+        if (con != null) con.close();
+      } catch (Exception ex) {
+      }
+    }
+
     return false;
   }
   

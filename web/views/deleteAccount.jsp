@@ -20,7 +20,9 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/deleteAccount.css">
   
   <style>
-  
+    .test1 {
+      display: none;
+    }
   </style>
   
 </head>
@@ -33,8 +35,9 @@
       <div class="deleteTitle">계정을 삭제하기 위해서는 비밀번호가 필요합니다.</div>
       <div class="pwTitle"><label for="pw">비밀번호</label></div>
       <input type="password" name="pw" id="pw" autofocus>
+      <input type="text" style="display: none">
       <div class="inputCmt" id="deleteCmt"></div>
-      <input onclick="javascript:deleteAcc()" type="button" value="계정 삭제" id="deleteAccBtn">
+      <input onclick="deleteAcc()" type="button" value="계정 삭제" id="deleteAccBtn">
     </form>
   </div>
 </div>

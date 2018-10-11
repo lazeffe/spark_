@@ -188,7 +188,8 @@ public class BookmarkDAO {
     return null;
     
   }
-  
+
+
   public boolean bmkDelete(String email, String bmk_name) {
     String sql = "DELETE FROM BOOKMARK WHERE BOOKMARK_EMAIL = ? and BOOKMARK_NAME = ?";
     

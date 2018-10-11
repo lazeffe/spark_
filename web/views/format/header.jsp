@@ -26,7 +26,8 @@
             <div class="dropdown" style="float:right;">
               <div class="dropBtn"><span>${ name }</span><i class="material-icons" id="arrow">arrow_drop_down</i></div>
               <div class="dropdown-content">
-                <a href="/BmkView.me">즐겨찾기</a>
+                <a id="myBtn">즐겨찾기</a>
+                <%--<a href="/BmkView.me">즐겨찾기</a>--%>
                 <a href="/MemberViewAction.Lo?email=${ email }">계 정</a>
                 <a href="/MemberLogoutAction.Lo">로그 아웃</a>
               </div>

@@ -1,9 +1,11 @@
 package net.ajax.action;
 
 import net.ajax.db.AjaxDAO;
+import net.bookmark.db.BookmarkDTO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -109,9 +111,52 @@ public class AjaxController extends HttpServlet {
         out.print("fail");
       }
   
+    } /* bmk List  */
+    else if (command.equals("/bmkList.aj")) {
+
+      HttpSession session = request.getSession();
+      PrintWriter out = response.getWriter();
+      List<BookmarkDTO> bmkList = null;
+
+      String email = request.getParameter("email");
+
+      AjaxDAO dao = new AjaxDAO();
+
+      Boolean result = null;
+
+      bmkList = dao.getBmkList(email);
+
+      if(bmkList != null) {
+        out.print("success");
+      } else {
+        out.print("fail");
+      }
+
+    } /* bmk List  */
+    else if (command.equals("/DeleteBmk.aj")) {
+
+      HttpSession session = request.getSession();
+      PrintWriter out = response.getWriter();
+
+      String email = request.getParameter("email");
+      String bmkName = request.getParameter("bmkName");
+
+      AjaxDAO dao = new AjaxDAO();
+
+      Boolean result = null;
+
+      result = dao.bmkDelete(email, bmkName);
+
+      if(result != null) {
+        out.print("success");
+      } else {
+        out.print("fail");
+      }
+
     } else {
       System.out.println("data flow fail");
       
     }
+
   }
 }

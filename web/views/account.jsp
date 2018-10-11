@@ -75,7 +75,7 @@
               </div>
               <div class="input-btn-Wrapper">
                 <input type="button"
-                       onclick="window.open('http://localhost:8090/views/modifyPW.jsp', '_blank', 'width=600 height=480')"
+                       onclick="window.open('http://localhost:8090/views/modifyPW.jsp', '_blank', 'width=600 height=500')"
                        value="비밀번호 변경">
                 <input type="button"
                        onclick="window.open('http://localhost:8090/views/deleteAccount.jsp', '_blank', 'width=500 height=300')"
