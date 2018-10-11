@@ -75,10 +75,10 @@
               </div>
               <div class="input-btn-Wrapper">
                 <input type="button"
-                       onclick="window.open('http://localhost:8090/views/modifyPW.jsp', '_blank', 'width=600 height=900')"
+                       onclick="window.open('http://localhost:8090/views/modifyPW.jsp', '_blank', 'width=600 height=480')"
                        value="비밀번호 변경">
                 <input type="button"
-                       onclick="window.open('http://localhost:8090/views/deleteAccount.jsp', '_blank', 'width=300 height=200')"
+                       onclick="window.open('http://localhost:8090/views/deleteAccount.jsp', '_blank', 'width=500 height=300')"
                        value="계정 삭제">
               </div>
 

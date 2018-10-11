@@ -3,16 +3,16 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:set value="${ sessionScope.name }" var="username" />
-<c:set value="${ bmkList }" var="list" />
+<c:set value="${ sessionScope.name }" var="username"/>
+<c:set value="${ bmkList }" var="list"/>
 
 <html>
 <head>
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1"/>
-
+  
   <title>Spark</title>
-
+  
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -28,18 +28,19 @@
   .card-item-right a {
     color: #000;
   }
-  
+
 </style>
 
 <body>
 
-  <jsp:include page="format/header.jsp"/>
+<jsp:include page="format/header.jsp"/>
 
-  <main class="main">
-    <div class="mainImg-cover">
-      <div class="contentWrapper">
-        <div class="contentItem">
-          <c:forEach items="${ list }" var="list">
+<main class="main">
+  <div class="mainImg-cover">
+    <div class="contentWrapper">
+      <div class="contentItem">
+        <c:forEach items="${ list }" var="list">
+          <c:set value="${ list.BOOKMARK_NAME }" var="bmkName"/>
           <div class="card-list"> <%--onclick="goContentPage(${ no })--%>
             <div class="card-item-left">
               <span class="card-list-name">${ list.BOOKMARK_NAME }</span>
@@ -51,26 +52,39 @@
               </div>
             </div>
             <div class="card-item-right">
-              <%--<div class="card-list-writer"><a href="/BmkDelete.me?BOOKMARK_NAME=${ list.BOOKMARK_NAME }"><i class="material-icons">bookmark</i></a></div>--%>
-              <div class="card-list-writer"><a href="/BmkDelete.me?BOOKMARK_NAME=${ list.BOOKMARK_NAME }">제거</a></div>
+              <div class="card-list-writer" id="deleteFav">
+                <button onclick="deleteFav('${ bmkName }')">제거</button>
+              </div>
             </div>
           </div>
-          </c:forEach>
-        </div>
+        </c:forEach>
       </div>
     </div>
-  </main>
+  </div>
+</main>
 
-  <jsp:include page="format/footer.jsp"/>
+<jsp:include page="format/footer.jsp"/>
 
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/favorite.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/favorite.js"></script>
 
-  <script>
+<script>
 
-  </script>
+  function deleteFav(bmkName) {
+    var _bmkName = bmkName;
+    var r = confirm("이 주차장을 즐겨찾기에서 삭제하시겠습니까?");
+
+    if (r == true) {
+      window.location.href = '/BmkDelete.me?BOOKMARK_NAME=' + _bmkName;
+      alert('삭제되었습니다!');
+    } else {
+
+    }
+  }
+
+</script>
 
 </body>
 </html>

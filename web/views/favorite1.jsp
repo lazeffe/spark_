@@ -25,6 +25,7 @@
 </head>
 
 <style>
+  /* The Modal (background) */
   .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -35,22 +36,39 @@
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
   /* Modal Content */
   .modal-content {
+    position: relative;
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 0;
     border: 1px solid #888;
-    width: 80%;
+    width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
   }
   
   /* The Close Button */
   .close {
-    color: #aaaaaa;
+    color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -62,6 +80,24 @@
     text-decoration: none;
     cursor: pointer;
   }
+  
+  .modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  .modal-body {padding: 2px 16px;}
+  
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  #myBtn {
+    margin-top: 100px;
+  }
 </style>
 
 <body>
@@ -70,32 +106,29 @@
 
 <main class="main">
   <div class="mainImg-cover">
-    <div class="contentWrapper">
-      <div class="contentItem">
-        <h2>Modal Example</h2>
-        
-        <!-- Trigger/Open The Modal -->
-        <button id="myBtn">Open Modal</button>
-        
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">즐겨찾기</button>
   
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+    
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>즐겨찾기</h2>
+        </div>
+        <div class="modal-body">
           <c:forEach items="${ list }" var="list">
-            <div class="card-list"> <%--onclick="goContentPage(${ no })--%>
-              <div class="card-item-left">
-                <span class="card-list-name">${ list.BOOKMARK_NAME }</span>
-                <div class="card-list-addr">
-                  <span>${ list.BOOKMARK_ADDR }</span>
-                </div>
-                <div class="card-list-tel">
-                  <span>${ list.BOOKMARK_TEL }</span>
-                </div>
-              </div>
-              <div class="card-item-right">
-                <div class="card-list-writer"><a href="/BmkDelete.me?BOOKMARK_NAME=${ list.BOOKMARK_NAME }"><i class="material-icons">bookmark</i></a></div>
-              </div>
-            </div>
+            <c:set value="${ list.BOOKMARK_NAME }" var="bmkName"/>
+            <p>${ list.BOOKMARK_NAME }</p>
+            <p>${ list.BOOKMARK_ADDR }</p>
+            <p>${ list.BOOKMARK_TEL }</p>
+            <hr/>
           </c:forEach>
+        </div>
+        <div class="modal-footer">
+          <h3>Presented by BOH</h3>
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="searchBar">
-          <form action="./BoardSearch.bo">
+          <form action="/BoardSearch.bo">
             <div class="searchBar-items" id="searchBar-items">
               <button class="searchBar-icon" type="submit" id="search-btn"><i class="material-icons">search</i></button>
               <input class="searchBar-content" name="BOARD_NAME" type="text" placeholder="주소 또는 주차장 이름 입력"

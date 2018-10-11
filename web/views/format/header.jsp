@@ -28,7 +28,7 @@
               <div class="dropdown-content">
                 <a href="/BmkView.me">즐겨찾기</a>
                 <a href="/MemberViewAction.Lo?email=${ email }">계 정</a>
-                <a href="/MemberDeleteAction.Lo">로그 아웃</a>
+                <a href="/MemberLogoutAction.Lo">로그 아웃</a>
               </div>
             </div>
           </c:when>

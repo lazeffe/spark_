@@ -20,7 +20,6 @@ public class MemberFrontController extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    System.out.println("get start");
     doProcess(request, response);
   }
 
@@ -121,55 +120,6 @@ public class MemberFrontController extends HttpServlet {
         forward = action.execute(request, response);
       } catch (Exception e) {
         e.printStackTrace();
-      }
-
-    }
-    /* ajax */
-    /* idChk */
-    else if (command.equals("/IdChk.Lo")) {
-
-      String email = request.getParameter("email");
-
-      PrintWriter out = response.getWriter();
-
-      MemberDAO dao = new MemberDAO();
-
-      int cnt = dao.IdChk(email);
-
-      if (cnt > 0) {
-        out.print("fail");
-      } else {
-        out.print("success");
-      }
-
-    }
-
-    /* modify PW */
-    else if (command.equals("/ModifyPW.Lo")) {
-
-      PrintWriter out = response.getWriter();
-
-      String email = request.getParameter("email_data");
-      String old_pw = request.getParameter("old_pw_data");
-      String new_pw = request.getParameter("new_pw_data");
-
-      MemberDAO dao = new MemberDAO();
-
-      /*System.out.println(email);
-      System.out.println(old_pw);
-      System.out.println(new_pw);*/
-
-      Boolean result = null;
-
-      result = dao.modifyPW_chk(email, old_pw);
-
-      if (result) {
-        System.out.println("modify start");
-        dao.modifyPW(email, new_pw);
-        out.print("success");
-      } else {
-        System.out.println("modify fail");
-        out.print("fail");
       }
 
     } else {

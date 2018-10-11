@@ -26,7 +26,7 @@ public class BmkListAction implements Action {
 		request.setAttribute("bmkList", bmkList);
 		
 		forward.setRedirect(false);
-		forward.setPath("/views/favorite.jsp");
+		forward.setPath("/views/favorite1.jsp");
 		
 		return forward;
 	}
