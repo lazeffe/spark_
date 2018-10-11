@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import net.bookmark.db.BookmarkDAO;
 import net.bookmark.db.BookmarkDTO;
+import net.park.db.BoardDAO;
+import net.park.db.BoardDTO;
 
 public class BookmarkAddAction implements Action {
 
@@ -17,23 +19,28 @@ public class BookmarkAddAction implements Action {
 		ActionForward forward=new ActionForward();
 		HttpSession session = request.getSession();
 		String email =(String)session.getAttribute("email");
+		String code = request.getParameter("PARKING_CODE");
 		
+		System.out.println(code);
 		
-		if(email == null){
+		BoardDAO boarddao = new BoardDAO();
+		BoardDTO boarddto = new BoardDTO();
+		
+		System.out.println("info start");
+		boarddto = boarddao.getInfo(code);
+		System.out.println("info end");
+		
+		/*if(email == null){
 			PrintWriter out=response.getWriter();
 			out.println("<script>");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
 			
-			
-		}
-		String addr = request.getParameter("addr");
-		String tel = request.getParameter("tel");
+		}*/
 
-		bmdao.bookmarkadd(email, addr, tel);
 		forward.setRedirect(true);
-		forward.setPath("");
+		forward.setPath("/Home.Lo");
 		return forward;
 	}
 

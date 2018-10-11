@@ -172,6 +172,47 @@ public class BoardDAO {
 		return null;
 	}
 	
+	public BoardDTO getInfo(String code) {
+		BoardDTO board = null;
+		String sql = "select * FROM Spark where PARKING_CODE = ? ";
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs = pstmt.executeQuery();
+			
+			System.out.println(rs);
+			System.out.println("before");
+			
+			while (rs.next()) {
+				System.out.println("after");
+				board = new BoardDTO();
+				
+				board.setParking_name(rs.getString("PARKING_NAME"));
+				board.setAddr(rs.getString("ADDR"));
+				board.setTel(rs.getString("TEL"));
+				
+				
+				System.out.println(board.getParking_name());
+				System.out.println(board.getAddr());
+				System.out.println(board.getTel());
+			}
+			
+			return board;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {//초기화기능
+			if(rs != null) try{rs.close();} catch(SQLException e) {}
+			if(pstmt != null) try{pstmt.close();} catch(SQLException e) {}
+			if(con != null) try{con.close();} catch(SQLException e) {}
+		}
+		
+		return null;
+	}
+	
 
 	
 }

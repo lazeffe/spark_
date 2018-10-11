@@ -132,13 +132,13 @@
   </c:when>
   </c:choose>
 
-  var loginAddr = ' ';
+  /*var loginAddr = ' ';
   
   if (login) {
-    loginAddr = 'http://www.naver.com/';	// 로그인창으로
+    loginAddr = '/BmkAddAction.me'
   } else {
     loginAddr = 'http://www.kakaocorp.com/main'; // 즐겨찾기로
-  }
+  }*/
 
   var SearchAdd = '${ parking_name }';
   
@@ -195,6 +195,8 @@
           latlng: new daum.maps.LatLng(data.positions[i].LAT, data.positions[i].LNG)
         }
       }
+      
+      console.log(positions);
 
       // 마커와 커스텀 오버레이 배열 변수 선언
       var marker = [];
@@ -266,6 +268,14 @@
         var link2 = document.createElement('a');
         var infoText2 = document.createTextNode('  즐겨찾기  ');
         link2.classList.add('link');
+
+        var loginAddr = ' ';
+
+        if (login) {
+          loginAddr = '/BmkAddAction.me?PARKING_CODE=' + positions[i].code;
+        } else {
+          loginAddr = 'http://www.kakaocorp.com/main'; // 즐겨찾기로
+        }
 
         link2.setAttribute('href', loginAddr);
 

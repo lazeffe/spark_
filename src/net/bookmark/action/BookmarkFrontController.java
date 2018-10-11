@@ -85,6 +85,15 @@ public class BookmarkFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		} else if (command.equals("/BmkAddAction.me")) {
+			action = new BookmarkAddAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		} else {
 			System.out.println("data flow fail");
 			

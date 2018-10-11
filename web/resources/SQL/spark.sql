@@ -50,6 +50,7 @@ create table SPark(
 
 
 select *from member;
+select *from SPark;
 
 select * from bookmark;
 
@@ -66,3 +67,7 @@ commit;
 delete from BOOKMARK where BOOKMARK_NAME='asdf@asdf.com';
 
 drop table BOOKMARK;
+
+
+
+select PARKING_NAME, ADDR, TEL FROM Spark where PARKING_CODE = '1540479';
