@@ -95,7 +95,11 @@ input[type=text]::placeholder {
 
 /* Modal start */
 
-#myBtn:hover {
+#myBtn1:hover {
+  cursor: pointer;
+}
+
+#myBtn2:hover {
   cursor: pointer;
 }
 
@@ -103,7 +107,7 @@ input[type=text]::placeholder {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 100; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -173,10 +177,6 @@ input[type=text]::placeholder {
   color: white;
 }
 
-.modal-body {
-
-}
-
 .modal-footer {
   text-align: center;
   padding: 10px;
@@ -204,6 +204,69 @@ input[type=text]::placeholder {
     margin-top: 50px;
   }
 
+}
+
+/* modal custom */
+button {
+  background: #fff;
+  color: #FFC400;
+}
+
+button .material-icons {
+  font-size: 30px;
+}
+
+button .material-icons:hover {
+  cursor: pointer;
+}
+
+.modal-body-Wrapper {
+  padding: 0 20px;
+}
+
+.modal-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 20px 10px;
+}
+
+.modal-body-borderless {
+  border: none;
+}
+
+.modal-header-title {
+  font-size: 18px;
+  padding: 6px;
+}
+
+.modal-body-left {
+  font-size: 15px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.modal-body-title {
+  color: #00BFA5;
+  margin-bottom: 5px;
+}
+
+.modal-body-addr {
+  color: #424242;
+  font-size: 14px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.modal-body-tel {
+  color: #424242;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.modal-body-right {
+  margin-right: 20px;
 }
 
 /* for responsive end */

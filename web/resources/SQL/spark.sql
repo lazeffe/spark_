@@ -52,8 +52,6 @@ create table SPark(
 select *from member;
 select *from SPark;
 
-
-
 select count(*) from member;
 
 insert into MEMBER values('asdf@asdf.com', 'asdf', 'username', '18','none');

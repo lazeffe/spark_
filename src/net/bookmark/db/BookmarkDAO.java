@@ -171,7 +171,7 @@ public class BookmarkDAO {
         
         bmklist.add(dto);
       }
-      
+  
       return bmklist;
       
     } catch (SQLException e) {

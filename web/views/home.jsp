@@ -25,71 +25,7 @@
 
   <style>
 
-    button {
-      background: #fff;
-      color: #FFC400;
-    }
-
-    button .material-icons {
-      font-size: 30px;
-    }
-
-    button .material-icons:hover {
-      cursor: pointer;
-    }
-
-    .modal-body-Wrapper {
-      padding: 0 20px;
-    }
-
-    .modal-body {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #bdbdbd;
-      padding: 20px;
-    }
-
-    .modal-body-borderless {
-      border: none;
-    }
-
-    /*.modal-body:nth-last-of-type(1) {
-      border-bottom: none;
-    }*/
-
-    .modal-header-title {
-      font-size: 18px;
-      padding: 6px;
-    }
-
-    .modal-body-left {
-      font-size: 15px;
-      margin-left: 20px;
-      cursor: pointer;
-    }
-
-    .modal-body-title {
-      color: #00BFA5;
-      margin-bottom: 5px;
-    }
-
-    .modal-body-addr {
-      color: #424242;
-      font-size: 14px;
-      margin-left: 5px;
-      margin-bottom: 5px;
-    }
-
-    .modal-body-tel {
-      color: #424242;
-      font-size: 14px;
-      margin-left: 5px;
-    }
-
-    .modal-body-right {
-      margin-right: 20px;
-    }
+  
 
   </style>
 
@@ -201,7 +137,9 @@
       });
     });
 
-    clickMobileBtn('#navMenu-mobile-btn', '.navMenu-mobile');
+    clickMobileBtn('#navMenu-mobile-btn1', '.navMenu-mobile');
+    
+    clickMobileBtn('#navMenu-mobile-btn2', '.navMenu-mobile');
 
     clickSearchbar('#tags', '#hide-items', '#contentItem-title');
 
@@ -215,13 +153,18 @@
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+    var btn1 = document.getElementById("myBtn1");
+    var btn2 = document.getElementById("myBtn2");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks the button, open the modal
-    btn.onclick = function () {
+    btn1.onclick = function () {
+      modal.style.display = "block";
+    }
+
+    btn2.onclick = function () {
       modal.style.display = "block";
     }
 
@@ -240,54 +183,6 @@
     </c:choose>
 
     /* Modal end */
-
-    function deleteBmk(bmkName, cnt, first, last) {
-      var _bmkName = bmkName;
-      var _cnt = document.getElementById(cnt);
-      var _first = first;
-      var _last = last;
-
-      console.log(_first);
-      console.log(_last);
-
-      var _cnt_near_num = parseInt(cnt) - 1;
-      var _cnt_near = document.getElementById(_cnt_near_num);
-      console.log(_cnt_near_num);
-      console.log(_cnt_near);
-
-      var r = confirm("이 주차장을 즐겨찾기에서 삭제하시겠습니까?");
-
-      if (r == true) {
-        var _email = '${ email }';
-
-        $.ajax({
-          url: "/DeleteBmk.aj",
-          type: 'GET',
-          data: {email: _email, bmkName: _bmkName},
-          success: function (data) {
-            if (data === 'success') {
-              alert('삭제 성공');
-              _cnt.style.display = 'none';
-
-              if (_last === false) {
-                /*if(_first) { return };*/
-                alert('dd')
-                _cnt_near.style.border = 'none';
-              }
-
-            } else if (data === 'fail') {
-
-            }
-          }
-        })
-      } else {
-
-      }
-    }
-
-    function goContentPage(name) {
-      window.location.href = '/BoardSearchAction?PARKING_NAME' + name;
-    }
 
   </script>
 
