@@ -35,7 +35,7 @@ public class MemberLoginAction implements Action {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('비밀번호가 일치하지 않습니다.')");
-			out.println("location.href='/Signin.Lo'");
+			out.println("location.href='/Signin.bo'");
 			out.println("</script>");
 			out.close();
 			return null;
@@ -50,8 +50,8 @@ public class MemberLoginAction implements Action {
 			out.close();
 			return null;
 
+		
 		}
-
 		String name = dao.memberName(dto.getEMAIL());
 		
 		System.out.println(name);

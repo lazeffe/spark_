@@ -1,38 +1,20 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page trimDirectiveWhitespaces="true" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set value="${ sessionScope.email }" var="email"/>
-<c:set value="${ parking_name }" var="parking_name"/>
-<c:set value="${ bmkList }" var="list"/>
 
+<c:set value="${ parking_name }" var="parking_name"/>
+
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Spark Maps</title>
-
-  <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/normalize.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/format/header.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/format/footer.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home.css">
-
   <style>
 
     body a {
       text-decoration: none;
-    }
-
-    #map {
-      position: absolute;
-      top: 10vh;
-      bottom: 10vh;
-      left: 16%;
-      width: 68%;
-      /*height: 800px;*/
-      margin: 0 auto;
     }
 
     .wrap {
@@ -135,11 +117,11 @@
     }
 
     .info .link {
-      bottom: 0;
       font-size: 12px;
       color: #000;
-      margin: 10px;
+      margin: 3px;
       float: right;
+      bottom: 0;
     }
 
     .info .link:hover {
@@ -151,65 +133,9 @@
 </head>
 <body>
 
-  <jsp:include page="format/header.jsp"/>
+  
 
-  <main class="main">
-    <div class="mainImg-cover">
-
-      <!-- The Modal -->
-      <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-          <div class="modal-header">
-            <span class="close">&times;</span>
-            <div class="modal-header-title">즐겨찾기</div>
-          </div>
-          <c:forEach items="${ list }" var="list" varStatus="status">
-          <c:set value="${ list.BOOKMARK_NAME }" var="bmkName"/>
-          <c:set value="${ status.count }" var="cnt"/>
-          <c:set value="${ status.first }" var="first"/>
-          <c:set value="${ status.last }" var="last"/>
-          <div class="modal-body-Wrapper">
-            <c:choose>
-            <c:when test="${ last ne true }">
-            <div class="modal-body" id="${ cnt }">
-              </c:when>
-              <c:when test="${ last eq true }">
-              <div class="modal-body modal-body-borderless" id="${ cnt }">
-                </c:when>
-                </c:choose>
-                <div class="modal-body-left"
-                     onclick="goContentPage('${ list.BOOKMARK_NAME }')">
-                  <div class="modal-body-title">${ list.BOOKMARK_NAME }</div>
-                  <div class="modal-body-addr">${ list.BOOKMARK_ADDR }</div>
-                  <div class="modal-body-tel">${ list.BOOKMARK_TEL }</div>
-                </div>
-                <div class="modal-body-right">
-                  <div class="modal-body-icon">
-                    <button
-                        onclick="deleteBmk('${ bmkName }', '${ cnt }', '${ first }', '${ last }')">
-                      <i class="material-icons">bookmark</i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </c:forEach>
-            <div class="modal-footer">
-              <div>Presented by BOH</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <jsp:include page="format/footer.jsp"/>
-
-
-  <div id="map"></div>
+  <div id="map" style="width:100%;height:700px;"></div>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script type="text/javascript"
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=65ef4303482c34481a1e7944b80a4dc0&libraries=clusterer"></script>
@@ -237,7 +163,6 @@
 
     var Search2 = 0; // 위치에 맞는 오버레이 표시를 위한 변수
     var mapContainer;
-
 
     $(document).ready(function () {
       $.get("/resources/json/data2.json", function (data) {
@@ -315,7 +240,6 @@
           });
 
           // 오버레이 정보
-
           var content = document.createElement('div');
           content.classList.add("wrap");
           var info = document.createElement('div');
@@ -347,14 +271,11 @@
           link.setAttribute('href', './BoardSearchAction.bo?BOARD_NAME=' + positions[i].code);
           var box2 = document.createElement('b');
           var link2 = document.createElement('a');
-          var infoText2 = document.createTextNode('즐겨찾기 추가');
+          var infoText2 = document.createTextNode('즐겨찾기');
           link2.classList.add('link');
-          link2.classList.add('addBtn');
-          /*link2.setAttribute('onclick', addBmk());*/
-          /*link2.setAttribute('href', loginAddr + '?PARKING_CODE=' + positions[i].code + '?PARKING_NAME=' + positions[i].name);*/
+          link2.setAttribute('href', loginAddr + '?BOARD_NAME=' + positions[i].code);
 
           //밑으로 넣기
-
           content.appendChild(info);
           info.appendChild(title);
           title.appendChild(close);
@@ -384,118 +305,9 @@
           });
 
           i++;
-
         });
       });
     });
-
-    var _addBtn = document.getElementsByClassName('addBtn');
-
-    for (var i = 0; i < _addBtn.length; i++) {
-      console.log(_addBtn[i]);
-    }
-
-
-    /*_addBtn.addEventListener('click', function () {
-          /!* bmk add action *!/
-          var _email = '${ email }';
-
-          $.ajax({
-            url: "/addBmk.aj",
-            type: 'GET',
-            data: {email: _email},
-            success: function (data) {
-              if (data == 'success') {
-                alert('사용가능한 이메일입니다.');
-              } else if (data == 'fail') {
-                alert('중복된 이메일입니다. 다른 이메일을 입력해주세요');
-              }
-            }
-          })
-        }
-    )*/
-
-    /* Modal start */
-
-    <c:choose>
-    <c:when test="${ name ne null }">
-    // Get the modal
-    var modal = document.getElementById('myModal');
-
-    // Get the button that opens the modal
-    var btn1 = document.getElementById("myBtn1");
-    var btn2 = document.getElementById("myBtn2");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn1.onclick = function () {
-      modal.style.display = "block";
-    }
-
-    btn2.onclick = function () {
-      modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-      modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-    </c:when>
-    </c:choose>
-
-    /* Modal end */
-
-    /* bmk delete action */
-    function deleteBmk(bmkName, cnt, first, last) {
-      var _bmkName = bmkName;
-      var _cnt = document.getElementById(cnt);
-      var _first = first;
-      var _last = last;
-
-      var _cnt_near_num = parseInt(cnt) - 1;
-      var _cnt_near = document.getElementById(_cnt_near_num);
-
-      var r = confirm("이 주차장을 즐겨찾기에서 삭제하시겠습니까?");
-
-      if (r == true) {
-        var _email = '${ email }';
-
-        $.ajax({
-          url: "/DeleteBmk.aj",
-          type: 'GET',
-          data: {
-            email: _email,
-            bmkName: _bmkName
-          },
-          success: function (data) {
-            if (data === 'success') {
-              alert('삭제 성공');
-              _cnt.style.display = 'none';
-
-              if (_last === false) {
-                /*if(_first) { return };*/
-                alert('dd')
-                _cnt_near.style.border = 'none';
-              }
-
-            } else if (data === 'fail') {
-
-            }
-          }
-        })
-      } else {
-
-      }
-    }
 
   </script>
 </body>

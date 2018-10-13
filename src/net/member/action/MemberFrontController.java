@@ -10,141 +10,150 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.bookmark.action.BmkListAction;
+import net.member.action.Action;
+import net.member.action.ActionForward;
+import net.member.db.MemberDAO;
 
 @WebServlet("*.Lo")
 public class MemberFrontController extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    doProcess(request, response);
-  }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
+	}
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    System.out.println("post start");
-    doProcess(request, response);
-  }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
+	}
 
-  private void doProcess(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-    String uri = request.getRequestURI();
-    System.out.println(uri);
-    String context = request.getContextPath();
-    System.out.println(context);
-    String command = uri.substring(context.length());
-    System.out.println(command);
+		String uri = request.getRequestURI();
+		System.out.println(uri);
+		String context = request.getContextPath();
+		System.out.println(context);
+		String command = uri.substring(context.length());
+		System.out.println(command);
 
-    Action action = null;
-    ActionForward forward = null;
+		Action action = null;
+		ActionForward forward = null;
 
-    /*if (command.equals("/Home.Lo")) {
+		if (command.equals("/Home.Lo")) {
 
+			action = new HomeListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-      forward = new ActionForward();
-      forward.setRedirect(false);
-      forward.setPath("views/home.jsp");
+		} else if (command.equals("/Signin.Lo")) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/views/signIn.jsp");
 
-    } */
+		} else if (command.equals("/Signup.Lo")) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/views/signUp.jsp");
 
-    if (command.equals("/Home.Lo")) {
+		} else if (command.equals("/SignModify.Lo")) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/views/signUp.jsp");
 
-      action = new HomeListAction();
-      try {
-        forward = action.execute(request, response);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+		} else if (command.equals("/MemberView.Lo")) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/views/account.jsp");
 
-    } else if (command.equals("/Signin.Lo")) {
-      forward = new ActionForward();
-      forward.setRedirect(false);
-      forward.setPath("/views/signIn.jsp");
+		} else if (command.equals("/MemberViewAction.Lo")) {
+			action = new MemberViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-    } else if (command.equals("/Signup.Lo")) {
-      forward = new ActionForward();
-      forward.setRedirect(false);
-      forward.setPath("/views/signUp.jsp");
+		} else if (command.equals("/MemberLoginAction.Lo")) {
 
-    } else if (command.equals("/SignModify.Lo")) {
-      forward = new ActionForward();
-      forward.setRedirect(false);
-      forward.setPath("/views/signUp.jsp");
+			action = new MemberLoginAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-    } else if (command.equals("/MemberView.Lo")) {
-      forward = new ActionForward();
-      forward.setRedirect(false);
-      forward.setPath("/views/account.jsp");
+		} else if (command.equals("/MemberLogoutAction.Lo")) {
 
+			action = new MemberLogoutAction();
 
-    } else if (command.equals("/MemberViewAction.Lo")) {
-      action = new MemberViewAction();
-      try {
-        forward = action.execute(request, response);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-    } else if (command.equals("/MemberLoginAction.Lo")) {
+		} else if (command.equals("/MemberJoinAction.Lo")) {
 
-      action = new MemberLoginAction();
-      try {
-        forward = action.execute(request, response);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+			action = new MemberJoinAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-    } else if (command.equals("/MemberLogoutAction.Lo")) {
+		} else if (command.equals("/MemberModifyAction.Lo")) {
 
-      action = new MemberLogoutAction();
+			action = new MemberModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-      try {
-        forward = action.execute(request, response);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+		} else if (command.equals("/MemberDeleteAction.Lo")) {
 
-    } else if (command.equals("/MemberJoinAction.Lo")) {
+			action = new MemberDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-      action = new MemberJoinAction();
-      try {
-        forward = action.execute(request, response);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+		}
+		/* ajax test */
+		else if (command.equals("/IdChk.Lo")) {
 
-    } else if (command.equals("/MemberModifyAction.Lo")) {
+			String email = request.getParameter("email");
 
-      action = new MemberModifyAction();
-      try {
-        forward = action.execute(request, response);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+			PrintWriter out = response.getWriter();
 
-    } else if (command.equals("/MemberDeleteAction.Lo")) {
+			MemberDAO dao = new MemberDAO();
 
-      action = new MemberDeleteAction();
-      try {
-        forward = action.execute(request, response);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+			int cnt = dao.IdChk(email);
 
-    } else {
-      System.out.println("data flow fail");
+			if (cnt > 0) {
+				out.print("fail");
+			} else {
+				out.print("success");
+			}
 
-    }
-    if (forward != null) {
-      if (forward.isRedirect()) {
-        response.sendRedirect(forward.getPath());
-      } else {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+		} else {
+			System.out.println("data flow fail");
 
-        dispatcher.forward(request, response);
-      }
-    }
-  }
+		}
+		if (forward != null) {
+			if (forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+
+				dispatcher.forward(request, response);
+			}
+		}
+	}
 }

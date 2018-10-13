@@ -53,7 +53,7 @@
                 <div>
                   <h6 class="my-0">주차장명</h6>
                 </div>
-                <span class="text-muted"><c:out value="${name}" /></span>
+                <span class="text-muted"><c:out value="${parking_name}" /></span>
               </li>
               <li
                   class="list-group-item d-flex justify-content-between lh-condensed">

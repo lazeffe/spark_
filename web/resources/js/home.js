@@ -42,51 +42,6 @@ function chkSearching(searchBtn, searchBar, valCmt) {
     });
 }
 
-/* bmk delte action */
-function deleteBmk(bmkName, cnt, first, last) {
-  var _bmkName = bmkName;
-  var _cnt = document.getElementById(cnt);
-  var _first = first;
-  var _last = last;
-
-  console.log(_first);
-  console.log(_last);
-
-  var _cnt_near_num = parseInt(cnt) - 1;
-  var _cnt_near = document.getElementById(_cnt_near_num);
-  console.log(_cnt_near_num);
-  console.log(_cnt_near);
-
-  var r = confirm("이 주차장을 즐겨찾기에서 삭제하시겠습니까?");
-
-  if (r == true) {
-    var _email = '${ email }';
-
-    $.ajax({
-      url: "/DeleteBmk.aj",
-      type: 'GET',
-      data: {email: _email, bmkName: _bmkName},
-      success: function (data) {
-        if (data === 'success') {
-          alert('삭제 성공');
-          _cnt.style.display = 'none';
-
-          if (_last === false) {
-            /*if(_first) { return };*/
-            alert('dd')
-            _cnt_near.style.border = 'none';
-          }
-
-        } else if (data === 'fail') {
-
-        }
-      }
-    })
-  } else {
-
-  }
-}
-
 /* go to detail page */
 function goContentPage(name) {
   window.location.href = '/BoardSearchAction?PARKING_NAME' + name;
