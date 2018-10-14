@@ -57,9 +57,10 @@ select count(*) from member;
 
 insert into MEMBER values('asdf@asdf.com', 'asdf', 'username', '18','none');
 
-insert into BOOKMARK values('asdf@asdf.com', '아카데미 노상공영(구)', '강북구 수유동 535-76', '02-111-1111');
-insert into BOOKMARK values('asdf@asdf.com', '가오천 노상공영(구)', '강북구 수유동 181-40', '02-111-1111');
-insert into BOOKMARK values('asdf@asdf.com', '훈련원공원주차장(시)', '중구 을지로5가 40-3', '02-111-1111');
+insert into BOOKMARK values('asdf@asdf.com', '영등포로터리(시)', '영등포구 영등포동3가 111-1', '032-872-7078');
+insert into BOOKMARK values('asdf@asdf.com', '동호대교(남)(시)', '강남구 압구정동 435-0', '02-445-0501');
+insert into BOOKMARK values('asdf@asdf.com', '세종로주차장(시)', '종로구 세종로 80-1', '02-2290-6566');
+insert into BOOKMARK values('asdf@asdf.com', '서인사마당공영(구)', '종로구 견지동 85-18', '02-2236-0052');
 
 select * from bookmark;
 

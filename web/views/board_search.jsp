@@ -232,6 +232,7 @@
     var loginAddr = ' ';
 
     if (login) {
+      var r =
       loginAddr = './BookmarkAdd.me';
     } else {
       loginAddr = './Signin.Lo';
