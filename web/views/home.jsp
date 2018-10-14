@@ -86,8 +86,7 @@
               <div class="modal-body modal-body-borderless" id="${ cnt }">
                 </c:when>
                 </c:choose>
-                <div class="modal-body-left"
-                     onclick="goContentPage('${ list.BOOKMARK_NAME }')">
+                <div class="modal-body-left" onclick="goContentPage('${ list.BOOKMARK_NAME }')">
                   <div class="modal-body-title">${ list.BOOKMARK_NAME }</div>
                   <div class="modal-body-addr">${ list.BOOKMARK_ADDR }</div>
                   <div class="modal-body-tel">${ list.BOOKMARK_TEL }</div>

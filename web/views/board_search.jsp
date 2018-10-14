@@ -25,6 +25,10 @@
       text-decoration: none;
     }
 
+    body a:hover {
+      cursor: pointer;
+    }
+
     #map {
       position: absolute;
       top: 10vh;
@@ -179,8 +183,7 @@
               <div class="modal-body modal-body-borderless" id="${ cnt }">
                 </c:when>
                 </c:choose>
-                <div class="modal-body-left"
-                     onclick="goContentPage('${ list.BOOKMARK_NAME }')">
+                <div class="modal-body-left" onclick="goContentPage('${ list.BOOKMARK_NAME }')">
                   <div class="modal-body-title">${ list.BOOKMARK_NAME }</div>
                   <div class="modal-body-addr">${ list.BOOKMARK_ADDR }</div>
                   <div class="modal-body-tel">${ list.BOOKMARK_TEL }</div>
@@ -238,6 +241,25 @@
     var Search2 = 0; // 위치에 맞는 오버레이 표시를 위한 변수
     var mapContainer;
 
+    /* go to detail page */
+    function goContentPage(name) {
+      window.location.href = '/BoardSearchAction.bo?PARKING_NAME=' + name;
+    }
+
+    /* click mobile menu*/
+    function clickMobileBtn(mobileBtn, mobileMenu) {
+      var _mobileBtn = document.querySelector(mobileBtn);
+      var _mobileMenu = document.querySelector(mobileMenu);
+
+      $(_mobileBtn).click(function () {
+        $(_mobileMenu).slideToggle("slow");
+      });
+    }
+
+    /* click mobile btn */
+    clickMobileBtn('#navMenu-mobile-btn1', '.navMenu-mobile');
+
+    clickMobileBtn('#navMenu-mobile-btn2', '.navMenu-mobile');
 
     $(document).ready(function () {
       $.get("/resources/json/data2.json", function (data) {
@@ -344,14 +366,12 @@
           var link = document.createElement('a');
           var infoText = document.createTextNode('상세 보기');
           link.classList.add('link');
-          link.setAttribute('href', './BoardSearchAction.bo?BOARD_NAME=' + positions[i].code);
+          link.setAttribute('href', './BoardSearchAction.bo?PARKING_NAME=' + positions[i].name);
           var box2 = document.createElement('b');
           var link2 = document.createElement('a');
           var infoText2 = document.createTextNode('즐겨찾기 추가');
           link2.classList.add('link');
-          link2.classList.add('addBtn');
-          /*link2.setAttribute('onclick', addBmk());*/
-          /*link2.setAttribute('href', loginAddr + '?PARKING_CODE=' + positions[i].code + '?PARKING_NAME=' + positions[i].name);*/
+          link2.setAttribute('href', loginAddr + '?PARKING_CODE=' + positions[i].code + '&PARKING_NAME=' + positions[i].name);
 
           //밑으로 넣기
 
@@ -388,32 +408,6 @@
         });
       });
     });
-
-    var _addBtn = document.getElementsByClassName('addBtn');
-
-    for (var i = 0; i < _addBtn.length; i++) {
-      console.log(_addBtn[i]);
-    }
-
-
-    /*_addBtn.addEventListener('click', function () {
-          /!* bmk add action *!/
-          var _email = '${ email }';
-
-          $.ajax({
-            url: "/addBmk.aj",
-            type: 'GET',
-            data: {email: _email},
-            success: function (data) {
-              if (data == 'success') {
-                alert('사용가능한 이메일입니다.');
-              } else if (data == 'fail') {
-                alert('중복된 이메일입니다. 다른 이메일을 입력해주세요');
-              }
-            }
-          })
-        }
-    )*/
 
     /* Modal start */
 
@@ -472,10 +466,7 @@
         $.ajax({
           url: "/DeleteBmk.aj",
           type: 'GET',
-          data: {
-            email: _email,
-            bmkName: _bmkName
-          },
+          data: {email: _email, bmkName: _bmkName},
           success: function (data) {
             if (data === 'success') {
               alert('삭제 성공');

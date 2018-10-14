@@ -14,75 +14,86 @@ import net.park.db.BoardDTO;
 
 public class BookmarkAddAction implements Action {
 
-	@Override
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ActionForward forward = null;
-		List<BookmarkDTO> limit = null;
-		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession();
+  @Override
+  public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    ActionForward forward = null;
+    List<BookmarkDTO> limit = null;
+    request.setCharacterEncoding("utf-8");
+    HttpSession session = request.getSession();
 
-		BookmarkDAO bmdao = new BookmarkDAO();
-		BookmarkDTO dto = new BookmarkDTO();
+    BoardDAO bodao = new BoardDAO();
+    BoardDTO bodto = new BoardDTO();
 
-		BoardDAO bodao = new BoardDAO();
-		BoardDTO bodto = new BoardDTO();
+    BookmarkDAO bmkdao = new BookmarkDAO();
+    BookmarkDTO bmkdto = new BookmarkDTO();
 
-		String code = request.getParameter("PARKING_CODE");
-		String name = request.getParameter("PARKING_NAME");
+    String email = (String) session.getAttribute("email");
+    String code = request.getParameter("PARKING_CODE");
+    String name = request.getParameter("PARKING_NAME");
 
-		System.out.println(code);
-		System.out.println(name);
+    System.out.println(email);
+    System.out.println(code);
+    System.out.println(name);
 
 		/*String addr = request.getParameter("ADDR");
 		String tel = request.getParameter("TEL");*/
 
-		String email = (String) session.getAttribute("email");
+    int result1 = bmkdao.getlistchk(email, name);
 
-		int result1 = bmdao.getlistchk(email, name);
+    if (result1 == 0) {
+      response.setContentType("text/html; charset=utf-8");
+      PrintWriter out = response.getWriter();
+      out.println("<script>");
+      out.println("alert('이미 즐겨찾기에 주차한 주차장입니다.')");
+      out.println("javascript:history.go(-1)");
+      out.println("</script>");
+      out.close();
 
-		if (result1 == 0) {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('이미 즐겨찾기에 주차한 주차장입니다.')");
-			out.println("location.href='/Home.Lo'");
-			out.println("</script>");
-			out.close();
+      return null;
+    }
 
-			return null;
+    boolean result2;
 
-		}
+    result2 = bmkdao.getaddlimit(email);
 
-		boolean result2;
+    if (result2) {
+      response.setContentType("text/html; charset=utf-8");
+      PrintWriter out = response.getWriter();
+      out.println("<script>");
+      out.println("alert('즐겨찾기 개수가 초과되었습니다. (5개까지 가능)')");
+      out.println("javascript:history.go(-1)");
+      out.println("</script>");
+      out.close();
 
-		/*result2 = bmdao.getaddlimit(email);
+      return null;
 
-		if (result2) {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('즐겨찾기에 추가되었습니다.')");
-			out.println("location.href='/Home.Lo'");
-			out.println("</script>");
-			out.close();
-			bmdao.bmkAdd(email, name);
+    }
 
-		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('즐겨찾기 개수가 초과되었습니다.')");
-			out.println("location.href='/Home.Lo'");
-			out.println("</script>");
-			out.close();
-		}*/
+    bodto = bodao.getInfo(code);
 
-		forward = new ActionForward();
-		forward.setPath("/views/favorite.jsp");
-		forward.setRedirect(false);
+    boolean result3;
 
-		return forward;
+    result3 = bmkdao.bmkAdd(email, bodto.getParking_name(), bodto.getAddr(), bodto.getTel());
 
-	}
+    if(!result3) {
+      System.out.println("즐겨찾기 실패");
+    }
+
+    response.setContentType("text/html; charset=utf-8");
+    PrintWriter out = response.getWriter();
+
+    /*out.println("<script>");
+    out.println("alert('즐겨찾기에 추가되었습니다.')");
+    out.println("location.href='/BoardSearch.bo?PARKING_NAME='" + name + "");
+    out.println("</script>");
+    out.close();*/
+
+    forward = new ActionForward();
+    forward.setRedirect(false);
+    forward.setPath("/BoardSearch.bo?PARKING_NAME=" + name);
+
+    return forward;
+
+  }
 
 }

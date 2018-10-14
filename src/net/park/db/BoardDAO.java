@@ -52,15 +52,15 @@ public class BoardDAO {
 	
 	
 	//글 내용 보기(세부항목)
-	public BoardDTO getDetail(String code) {
+	public BoardDTO getDetail(String name) {
 		BoardDTO board = null;
-		String sql = "select * from SPark where PARKING_CODE = ? ";
+		String sql = "select * from SPark where PARKING_NAME = ? ";
 		
 		try {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, code);
+			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -117,35 +117,25 @@ public class BoardDAO {
 		return null;
 	}
 	
-	public BoardDTO getInfo(String name) {
-		String sql = "SELECT * FROM SPARK WHERE PARKING_NAME=?";
+	public BoardDTO getInfo(String code) {
+		String sql = "SELECT * FROM SPARK WHERE PARKING_CODE = ? ";
 		
 		try {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, name);
+			pstmt.setString(1, code);
 			rs = pstmt.executeQuery();
 			
-			System.out.println(rs);
-			System.out.println("before");
-			
 			while (rs.next()) {
-				System.out.println("after");
 				BoardDTO board = new BoardDTO();
 								
 				board.setParking_name(rs.getString("PARKING_NAME"));
 				board.setAddr(rs.getString("ADDR"));
 				board.setTel(rs.getString("TEL"));
-								
-				System.out.println(board.getParking_name());
-				System.out.println(board.getAddr());
-				System.out.println(board.getTel());
 				
 				return board;
 			}
-			
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
