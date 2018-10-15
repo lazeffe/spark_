@@ -35,10 +35,7 @@ public class BookmarkAddAction implements Action {
     System.out.println(code);
     System.out.println(name);
 
-		/*String addr = request.getParameter("ADDR");
-		String tel = request.getParameter("TEL");*/
-
-    int result1 = bmkdao.getlistchk(email, name);
+    int result1 = bmkdao.getlistchk(email, name); // 중복체크
 
     if (result1 == 0) {
       response.setContentType("text/html; charset=utf-8");

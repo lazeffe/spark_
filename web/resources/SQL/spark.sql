@@ -70,6 +70,8 @@ delete from BOOKMARK where BOOKMARK_NAME=null;
 
 drop table BOOKMARK;
 
+drop table Spark;
+
 select PARKING_NAME, ADDR, TEL FROM Spark where PARKING_CODE = '1540479';
 
 select * from SPark where PARKING_CODE = 140652

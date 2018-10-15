@@ -53,6 +53,7 @@ public class BookmarkDAO {
       pstmt.executeUpdate();
 
       return true;
+      
     } catch (SQLException e) {
       e.printStackTrace();
 
@@ -170,7 +171,8 @@ public class BookmarkDAO {
       pstmt.setString(1, email);
       rs = pstmt.executeQuery();
 
-      if (rs.next()) {
+      
+      while (rs.next()) {
         System.out.println(rs.getString("BOOKMARK_NAME"));
         System.out.println(name);
 
@@ -178,11 +180,11 @@ public class BookmarkDAO {
           System.out.println("일치");
           result = 0; // 일치
           return result;
-        } else {
-          result = 1;// 불일치.
-          return result;
         }
       }
+  
+      result = 1;// 불일치.
+      return result;
 
     } catch (Exception e) {
     } finally {

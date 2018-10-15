@@ -2,8 +2,6 @@ package net.park.action;
 
 import net.bookmark.db.BookmarkDAO;
 import net.bookmark.db.BookmarkDTO;
-import net.park.db.BoardDAO;
-import net.park.db.BoardDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

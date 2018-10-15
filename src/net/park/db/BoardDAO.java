@@ -27,46 +27,50 @@ public class BoardDAO {
 		}
 	}
 	
+	
 	//시간계산
-		public String timeSet(String before) {
-			String time = before;
-			String colon = ":";
-			int pos = 0;
-			System.out.println("::"+time.length());
-			time = time.trim();
-			if(time.length() == 1) {
-				time = "자정";
-				//System.out.println("1");
-				return time;
-			}else if(time.length() == 3) {
-				//System.out.println("2");
-				pos = 1;
-			}else {
-				//System.out.println("3");
-				pos = 2;
-			}
-			//System.out.println("4");
-			time = time.substring(0, pos)+colon+time.substring(pos);
+	public String timeSet(String before) {
+		String time = before;
+		String colon = ":";
+		int pos = 0;
+		System.out.println("::"+time.length());
+		time = time.trim();
+		if(time.length() == 1) {
+			time = "자정";
+			//System.out.println("1");
 			return time;
+		}else if(time.length() == 3) {
+			//System.out.println("2");
+			pos = 1;
+		}else {
+			//System.out.println("3");
+			pos = 2;
 		}
+		//System.out.println("4");
+		time = time.substring(0, pos)+colon+time.substring(pos);
+		return time;
+	}
 	
 	
 	//글 내용 보기(세부항목)
 	public BoardDTO getDetail(String name) {
 		BoardDTO board = null;
 		String sql = "select * from SPark where PARKING_NAME = ? ";
+		//System.out.println("담아주기전");
 		
 		try {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, name);
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				board = new BoardDTO();
 				
-				board.setParking_name(rs.getString("PARKING_NAME"));				
+				board.setParking_code(rs.getString("PARKING_CODE"));
+				board.setParking_name(rs.getString("PARKING_NAME"));
 				board.setAddr(rs.getString("ADDR"));
 				board.setParking_type(rs.getString("PARKING_TYPE"));
 				board.setParking_type_nm(rs.getString("PARKING_TYPE_NM"));
@@ -98,13 +102,79 @@ public class BoardDAO {
 				board.setLat(rs.getString("LAT"));
 				board.setLng(rs.getString("LNG"));
 				
-				return board;
+				//System.out.println("!!!!");
+			}
+			//System.out.println("담아준 후");
+			//System.out.println(board.getParking_name());
+			String dummy="";
+			dummy=board.getTel();
+			dummy=dummy.trim();
+			if( dummy.equals("NA")) {
+				board.setTel("-");
+			}
+			dummy=board.getFulltime_monthly();
+			dummy=dummy.trim();
+			if(dummy.equals("NA") || dummy.equals("0")) {
+				board.setFulltime_monthly("-");
+			}else if(dummy.length()>3){
+				dummy = dummy.substring(0, dummy.length()-3)+","+dummy.substring(dummy.length()-3, dummy.length());
+				board.setFulltime_monthly(dummy);
+			}
+			dummy=board.getDay_maximum();
+			dummy=dummy.trim();
+			if(dummy.equals("NA") || dummy.equals("0")) {
+				board.setDay_maximum("-");
+			}else if(dummy.length()>3){
+				dummy = dummy.substring(0, dummy.length()-3)+","+dummy.substring(dummy.length()-3, dummy.length());
+				board.setDay_maximum(dummy);
+			}
+			dummy=board.getRates();
+			dummy=dummy.trim();
+			if(dummy.equals("NA")|| dummy.equals("0")) {
+				board.setRates("-");
+			}else if(dummy.length()>3){
+				dummy = dummy.substring(0, dummy.length()-3)+","+dummy.substring(dummy.length()-3, dummy.length());
+				board.setRates(dummy);
+			}
+			dummy=board.getTime_rate();
+			dummy=dummy.trim();
+			if(dummy.equals("NA")|| dummy.equals("0")) {
+				board.setTime_rate("-");
+			}else if(dummy.length()>3){
+				dummy = dummy.substring(0, dummy.length()-3)+","+dummy.substring(dummy.length()-3, dummy.length());
+				board.setTime_rate(dummy);
+			}
+			dummy=board.getAdd_rates();
+			dummy=dummy.trim();
+			if(dummy.equals("NA")|| dummy.equals("0")) {
+				board.setAdd_rates("-");
+			}else if(dummy.length()>3){
+				dummy = dummy.substring(0, dummy.length()-3)+","+dummy.substring(dummy.length()-3, dummy.length());
+				board.setAdd_rates(dummy);
+			}
+			dummy=board.getAdd_time_rate();
+			dummy=dummy.trim();
+			if(dummy.equals("NA")|| dummy.equals("0")) {
+				board.setAdd_time_rate("-");
+			}else if(dummy.length()>3){
+				dummy = dummy.substring(0, dummy.length()-3)+","+dummy.substring(dummy.length()-3, dummy.length());
+				board.setAdd_time_rate(dummy);
 			}
 			
+			System.out.println(board.getWeekday_begin_time());
 			
-			/*System.out.println(board.getParking_name());
+			BoardDAO dao = new BoardDAO();
+			board.setWeekday_begin_time(dao.timeSet(board.getWeekday_begin_time()));
+			board.setWeekday_end_time(dao.timeSet(board.getWeekday_end_time()));
+			board.setWeekend_begin_time(dao.timeSet(board.getWeekend_begin_time()));
+			board.setWeekend_end_time(dao.timeSet(board.getWeekend_end_time()));
+			board.setHoliday_begin_time(dao.timeSet(board.getHoliday_begin_time()));
+			board.setHoliday_end_time(dao.timeSet(board.getHoliday_end_time()));
 			
-			return board;*/
+			System.out.println(board.getWeekday_begin_time());
+			System.out.println(board.getTel());
+			
+			return board;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -129,7 +199,7 @@ public class BoardDAO {
 			
 			while (rs.next()) {
 				BoardDTO board = new BoardDTO();
-								
+				
 				board.setParking_name(rs.getString("PARKING_NAME"));
 				board.setAddr(rs.getString("ADDR"));
 				board.setTel(rs.getString("TEL"));
